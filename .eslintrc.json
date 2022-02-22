@@ -317,5 +317,6 @@
         ]
       }
     ]
-  }
+  },
+  "ignorePatterns": ["**/dist/*.js"]
 }

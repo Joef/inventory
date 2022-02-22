@@ -4,10 +4,14 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf dist/*",
+    "copy-assets": "ts-node tools/copy-assets",
     "lint": "eslint '**/*.{js,ts,tsx}'",
     "lint:fix": "eslint '**/*.{js,ts,tsx}' --fix",
-    "build": "tsc",
-    "prestart": "npm run build",
+    "tsc": "tsc",
+    "build": "npm-run-all clean lint tsc copy-assets",
+    "dev:start": "npm-run-all build start",
+    "dev": "nodemon --watch src -e ts,ejs --exec npm run dev:start",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,15 +19,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.17.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^16.11.25",
+    "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "eslint": "^8.9.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "fs-extra": "^10.0.1",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "shelljs": "^0.8.5",
+    "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }
 }
