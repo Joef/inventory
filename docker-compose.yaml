@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+  # Postgres
+  db:
+    container_name: inventory_database
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: inventory_database
+    volumes:
+      # persist data even if container shuts down
+      - database-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    networks:
+      - db
+  # pgadmin:
+  #   container_name: deploy_api_dbadmin
+  #   image: dpage/pgadmin4
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "5431:80"
+  #   networks:
+  #     - db
+  #   volumes:
+  #     - db-pgadmin:/var/lib/pgadmin
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@example.org
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   restart: unless-stopped
+volumes:
+  database-data:
+  # db-pgadmin:
+networks:
+  db:
